@@ -1,0 +1,38 @@
+name: Auto Deploy
+
+on:
+  push:
+    branches:
+      - master  # default branch
+
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: gulp clean build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+#       - name: Deploy to server
+#         uses: appleboy/ssh-action@v0.1.7
+#         with:
+#           host: ${{ secrets.HOST }}
+#           port: ${{ secrets.PORT }}
+#           username: ${{ secrets.USERNAME }}
+#           password: ${{ secrets.PASSWORD }}
+#           script: |
+#             cd /www/wwwroot/blog.crazywong.com
+#             git fetch --all
+#             git reset --hard origin/gh-pages
