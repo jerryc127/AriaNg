@@ -28,14 +28,14 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-#       - name: Deploy to server
-#         uses: appleboy/ssh-action@v0.1.7
-#         with:
-#           host: ${{ secrets.HOST }}
-#           port: ${{ secrets.PORT }}
-#           username: ${{ secrets.USERNAME }}
-#           password: ${{ secrets.PASSWORD }}
-#           script: |
-#             cd /www/wwwroot/blog.crazywong.com
-#             git fetch --all
-#             git reset --hard origin/gh-pages
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /www/wwwroot/dl.crazywong.com
+            git fetch --all
+            git reset --hard origin/gh-pages
